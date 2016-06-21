@@ -10,7 +10,7 @@ case $- in
       *) return;;
 esac
 
-CONFIG_DIR=~/.config/config-home
+CONFIG_DIR=~/.config/config-bash
 
 source_file $CONFIG_DIR/bashrc
 source_file $CONFIG_DIR/bashrc.os

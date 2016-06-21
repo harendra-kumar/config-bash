@@ -4,7 +4,7 @@ function source_file () {
   test -f $1 && source $1
 }
 
-CONFIG_DIR=~/.config/config-home
+CONFIG_DIR=~/.config/config-bash
 
 # Profile customizations
 source_file $CONFIG_DIR/bash_profile

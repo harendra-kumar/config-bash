@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_DIR=~/.config/config-home
+CONFIG_DIR=~/.config/config-bash
 
 function source_file () {
   test -f $1 && source $1
