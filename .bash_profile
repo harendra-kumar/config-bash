@@ -1,15 +1,21 @@
 #!/bin/bash
 
+CONFIG_DIR=~/.config
+
 function source_file () {
   test -f $1 && source $1
 }
 
-CONFIG_DIR=~/.config/config-bash
+function source_dir () {
+  if test -d $1
+  then
+    for i in `echo ${1}/*`
+    do
+      source $i
+    done
+  fi
+}
 
-# Profile customizations
-source_file $CONFIG_DIR/bash_profile
-source_file $CONFIG_DIR/bash_profile.os
-source_file $CONFIG_DIR/bash_profile.${HOSTNAME%.*}
-source_file $CONFIG_DIR/bash_profile.local
-
+# Modular profile customizations
+source_dir $CONFIG_DIR/bash_profile.d
 source_file ~/.bashrc

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Override any previous PATH settings to make sourcing of this file as an
+# idempotent operation. Every new login shell starts with a fresh config.
+
+export LC_ALL=C.UTF-8
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=~/.local/bin:$PATH

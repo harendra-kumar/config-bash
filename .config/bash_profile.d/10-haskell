@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Override any previous PATH settings to make sourcing of this file as an
-# idempotent operation. Every new login shell starts with a fresh config.
-
-export LC_ALL=C.UTF-8
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export PATH=~/.local/bin:$PATH
 export PATH=$PATH:~/.cabal/bin
 
 # IMPORTANT: this is required for binaries like ghc-mod to work without using
@@ -22,4 +16,3 @@ then
 fi
 
 export GHC_PACKAGE_PATH=`stack path --ghc-package-path`
-export HOST_VOL_PATH=/vol/hosts/${HOSTNAME%.*}

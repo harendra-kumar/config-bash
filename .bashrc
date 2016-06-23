@@ -1,8 +1,6 @@
 #!/bin/bash
 
-function source_file () {
-  test -f $1 && source $1
-}
+CONFIG_DIR=~/.config
 
 # If not running interactively, don't do anything
 case $- in
@@ -10,9 +8,15 @@ case $- in
       *) return;;
 esac
 
-CONFIG_DIR=~/.config/config-bash
+function source_dir () {
+  if test -d $1
+  then
+    for i in `echo ${1}/*`
+    do
+      source $i
+    done
+  fi
+}
 
-source_file $CONFIG_DIR/bashrc
-source_file $CONFIG_DIR/bashrc.os
-source_file $CONFIG_DIR/bashrc.${HOSTNAME%.*}
-source_file $CONFIG_DIR/bashrc.local
+# Modular bashrc customizations
+source_dir $CONFIG_DIR/bashrc.d

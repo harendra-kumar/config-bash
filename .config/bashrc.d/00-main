@@ -1,27 +1,12 @@
 #!/bin/bash
 
-CONFIG_DIR=~/.config/config-bash
-
-function source_file () {
-  test -f $1 && source $1
-}
-
 function setup_aliases {
   alias ls='ls -G'
   alias ll='ls -l'
   alias lal='ls -al'
-  alias vi='vim'
+  # safe move
   alias mv='mv -i'
-}
-
-function setup_host_aliases {
-  function cdh () {
-      cd /vol/hosts/${1:-${HOSTNAME%.*}}
-  }
-
-  function cdw () {
-      cd /vol/hosts/${1:-${HOSTNAME%.*}}/workspace
-  }
+  alias vi='vim'
 }
 
 function setup_prompt() {
@@ -85,32 +70,6 @@ function setup_history_params () {
   shopt -s checkwinsize
 }
 
-setup_gitawareprompt () {
-  local dir=$CONFIG_DIR/git-aware-prompt
-  if test -e $dir
-  then
-    export GITAWAREPROMPT=$dir
-    source $GITAWAREPROMPT/main.sh
-  fi
-}
-
-setup_haskell() {
-  # Haskell stack shell tab completion
-  type stack >/dev/null 2>&1 && eval "$(stack --bash-completion-script "$(which stack)")"
-}
-
 setup_aliases
-
-# I run multiple VMs on a physical host. I do not use the homedirs for anything
-# else other than repeatable config deployed automatically. The workspaces are
-# kept in /vol/hosts/<hostname> which is mounted via shared folders. Setup
-# convenience functions to access these locations.
-setup_host_aliases
-
-setup_haskell
-# This is problematic for big repositories on VirtualBox guests because of slow
-# IO through shared folders. So we disable it in common config and enable only
-# for non VM machines in the non-vm hosts' bashrc only.
-#setup_gitawareprompt
 setup_prompt
 setup_history_params

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# I run multiple VMs on a physical host. I do not use the homedirs for anything
+# else other than repeatable config deployed automatically. The workspaces are
+# kept in /vol/hosts/<hostname> which is mounted via shared folders. 
+
+function setup_host_aliases {
+  function cdh () {
+      cd ${VOL_HOSTS}/${1:-${HOSTNAME%.*}}
+  }
+
+  function cdw () {
+      cd ${VOL_HOSTS}/${1:-${HOSTNAME%.*}}/workspace
+  }
+}
+
+# Setup convenience functions to access these locations.
+setup_host_aliases

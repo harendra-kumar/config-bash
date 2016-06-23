@@ -1,0 +1,8 @@
+#!/bin/bash
+
+setup_haskell() {
+  # Haskell stack shell tab completion
+  type stack >/dev/null 2>&1 && eval "$(stack --bash-completion-script "$(which stack)")"
+}
+
+setup_haskell
