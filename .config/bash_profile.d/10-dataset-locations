@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export VOL_HOSTS=/vol/hosts
-export HOST_VOL_PATH=${VOL_HOSTS}/${HOSTNAME%.*}

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# ---------------------------------------
+# Some utility functions
+# ---------------------------------------
+
+# apply a command to all directories under the given path
+# the command can be multiword but should take the dir as the last arg
+# $1: path
+# $2: command
+function foralldirs () {
+  if test $# -ge 2
+  then
+    local path=$1; shift
+    find $path -type d -exec $@ \{\} \;
+  else
+    echo "Usage: $0 <path> <command> <args...>"
+    echo "The command should accept a dir as the last arg."
+  fi
+}
+
+# apply a command to all files under the given path
+# the command can be multiword but should take the file as the last arg
+# $1: path
+# $2: command
+function forallfiles () {
+  if test $# -ge 2
+  then
+    local path=$1; shift
+    find $path -type f -exec $@ \{\} \;
+  else
+    echo "Usage: $0 <path> <command> <args...>"
+    echo "The command should accept a file as the last arg."
+  fi
+}
