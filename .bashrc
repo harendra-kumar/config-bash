@@ -19,4 +19,4 @@ function source_dir () {
 }
 
 # Modular bashrc customizations
-source_dir $CONFIG_DIR/bashrc.d
+source_dir $CONFIG_DIR/bashrc.d; unset source_dir

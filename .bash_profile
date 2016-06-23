@@ -17,5 +17,5 @@ function source_dir () {
 }
 
 # Modular profile customizations
-source_dir $CONFIG_DIR/bash_profile.d
-source_file ~/.bashrc
+source_dir $CONFIG_DIR/bash_profile.d ; unset source_dir
+source_file ~/.bashrc                 ; unset source_file

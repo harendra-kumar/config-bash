@@ -70,6 +70,6 @@ function setup_history_params () {
   shopt -s checkwinsize
 }
 
-setup_aliases
-setup_prompt
-setup_history_params
+setup_aliases        ; unset setup_aliases
+setup_prompt         ; unset setup_prompt
+setup_history_params ; unset setup_history_params

@@ -5,4 +5,4 @@ setup_haskell() {
   type stack >/dev/null 2>&1 && eval "$(stack --bash-completion-script "$(which stack)")"
 }
 
-setup_haskell
+setup_haskell; unset setup_haskell
