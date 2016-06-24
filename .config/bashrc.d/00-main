@@ -9,7 +9,12 @@ function setup_aliases {
   alias vi='vim'
 }
 
-function setup_prompt() {
+reset_prompt() {
+  PROMPT_COMMAND=""
+  unset PS_GIT
+}
+
+setup_prompt() {
   # set a fancy prompt (non-color, unless we know we "want" color)
   case "$TERM" in
       xterm-color) color_prompt=yes;;
@@ -33,19 +38,32 @@ function setup_prompt() {
       fi
   fi
 
+  # See man bash /PROMPTING for reference on special sequences
+  # For color codes see https://en.wikipedia.org/wiki/ANSI_escape_code
+  # Also, .config/config-git/git-aware-prompt/colors.sh
+  # config-git module sets the PROMPT_COMMAND and PS_GIT*
+
   if [ "$color_prompt" = yes ]; then
       #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-      PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[$txtcyn\]$git_branch\[$txtred\]$git_dirty\[$txtrst\]\$ '
+      PS1='\
+${debian_chroot:+($debian_chroot)}\
+\[\e[1;32m\]\h\
+\[\e[0m\]:\
+\[\e[1;34m\]\w'\
+$PS_GIT\
+'\[\e[0m\]\$ '
   else
       #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-      PS1='${debian_chroot:+($debian_chroot)}\h:\w$git_branch$git_dirty\$ '
+      PS1='${debian_chroot:+($debian_chroot)}\h:\w$PS_GIT\$ '
   fi
   unset color_prompt force_color_prompt
 
-  # If this is an xterm set the title to user@host:dir
+  # If this is an xterm set the title
   case "$TERM" in
   xterm*|rxvt*)
+      # user@host:dir
       #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+      # host:dir
       PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\h: \w\a\]$PS1"
       ;;
   *)
@@ -70,6 +88,11 @@ function setup_history_params () {
   shopt -s checkwinsize
 }
 
+function default_prompt() {
+  reset_prompt
+  setup_prompt
+}
+
 setup_aliases        ; unset setup_aliases
-setup_prompt         ; unset setup_prompt
 setup_history_params ; unset setup_history_params
+default_prompt # call this to set the prompt without the git stuff
