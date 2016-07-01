@@ -7,6 +7,7 @@ function setup_aliases {
   # safe move
   alias mv='mv -i'
   alias vi='vim'
+  alias lsdu='du -sm `ls -a|grep -v "^\.$"|grep -v "^\.\.$"`|sort -n -k1'
 }
 
 reset_prompt() {

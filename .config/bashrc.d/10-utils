@@ -14,7 +14,7 @@ function foralldirs () {
     local path=$1; shift
     find $path -type d -exec $@ \{\} \;
   else
-    echo "Usage: $0 <path> <command> <args...>"
+    echo "Usage: foralldirs <path> <command> <args...>"
     echo "The command should accept a dir as the last arg."
   fi
 }
@@ -29,7 +29,7 @@ function forallfiles () {
     local path=$1; shift
     find $path -type f -exec $@ \{\} \;
   else
-    echo "Usage: $0 <path> <command> <args...>"
+    echo "Usage: forallfiles <path> <command> <args...>"
     echo "The command should accept a file as the last arg."
   fi
 }
