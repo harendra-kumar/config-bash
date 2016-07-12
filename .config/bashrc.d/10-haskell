@@ -1,8 +1,11 @@
 #!/bin/bash
 
-setup_haskell() {
+setup_stack_bash() {
   # Haskell stack shell tab completion
-  type stack >/dev/null 2>&1 && eval "$(stack --bash-completion-script "$(which stack)")"
+  if test -d "${STACK_ROOT}"
+  then
+    type stack >/dev/null 2>&1 && eval "$(stack --bash-completion-script "$(which stack)")"
+  fi
 }
 
-setup_haskell; unset setup_haskell
+setup_stack_bash; unset setup_stack_bash

@@ -19,11 +19,25 @@ fi
 # an append. Make sure we do not clear the path in case stack has not been
 # setup yet.
 
-STACKPATH=`stack path --bin-path`
-if test -n "$STACKPATH"
-then
-  export PATH=$STACKPATH
-fi
-unset STACKPATH
+# stack commands create a stack directory in HOST_VOL_PATH because of
+# the STACK_ROOT setting. That is problematic for vagrant provisioning
+# as it will create a .stack directory even before the /vol/hosts volume
+# is mounted. So do not run stack unless we already have a .stack directory
+# available.
 
-export GHC_PACKAGE_PATH=`stack path --ghc-package-path`
+setup_ghc_paths() {
+  if test -d "${STACK_ROOT}"
+  then
+    STACKPATH=`stack path --bin-path`
+    if test -n "$STACKPATH"
+    then
+      export PATH=$STACKPATH
+    fi
+    unset STACKPATH
+
+    export GHC_PACKAGE_PATH=`stack path --ghc-package-path`
+  fi
+}
+
+# This is very slow. Disable for now.
+# setup_ghc_paths
