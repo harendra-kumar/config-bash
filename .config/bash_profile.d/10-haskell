@@ -2,6 +2,16 @@
 
 export PATH=$PATH:~/.cabal/bin
 
+# Use host specific stack root instead of homedir. Homedir is in the var
+# partition and we do not want to use too much space in that partition.
+
+if test -n "${HOST_VOL_PATH}"
+then
+  export STACK_ROOT=${HOST_VOL_PATH}/.stack
+else
+  echo "WARNING! HOST_VOL_PATH is not set, STACK_ROOT not changed."
+fi
+
 # IMPORTANT: this is required for binaries like ghc-mod to work without using
 # stack-exec especially for invoking them from vim.
 
@@ -14,5 +24,6 @@ if test -n "$STACKPATH"
 then
   export PATH=$STACKPATH
 fi
+unset STACKPATH
 
 export GHC_PACKAGE_PATH=`stack path --ghc-package-path`
