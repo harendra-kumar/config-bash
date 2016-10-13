@@ -35,8 +35,11 @@ setup_ghc_paths() {
     fi
     unset STACKPATH
 
-    export GHC_PACKAGE_PATH=`stack path --ghc-package-path`
   fi
+}
+
+setup_ghc_package_path() {
+    export GHC_PACKAGE_PATH=`stack path --ghc-package-path`
 }
 
 # This is very slow. Disable for now.
